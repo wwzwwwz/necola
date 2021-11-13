@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.section2.R;
@@ -14,8 +17,21 @@ import com.example.section2.entity.Msg;
 
 import java.util.List;
 
-public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
-    private List<Msg> mMsgList;
+public class MsgAdapter extends ListAdapter<Msg,MsgAdapter.ViewHolder> {
+
+    public MsgAdapter(@NonNull DiffUtil.ItemCallback<Msg> diffCallback) {
+        super(diffCallback);
+    }
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
+        return ViewHolder.create(parent);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Msg currentItem=getItem(position);
+        holder.bind(currentItem);
+    }
 
     static class  ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout leftLayout;
@@ -29,36 +45,35 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
             leftMsg=(TextView) view.findViewById(R.id.left_msg);
             rightMsg=(TextView) view.findViewById(R.id.right_msg);
         }
-    }
-
-    public MsgAdapter(List<Msg>msgList){
-        mMsgList=msgList;
-    }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item,parent,false);
-        return new ViewHolder(view);
-
-    }
-
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Msg msg=mMsgList.get(position);
-        if(msg.getType()==Msg.TYPE_RECEIVED){
-            holder.leftLayout.setVisibility(View.VISIBLE);
-            holder.rightLayout.setVisibility(View.GONE);
-            holder.leftMsg.setText(msg.getContent());
+        public void bind(Msg item){
+            if(item.getType()==Msg.TYPE_RECEIVED){
+                leftLayout.setVisibility(View.VISIBLE);
+                rightLayout.setVisibility(View.GONE);
+                leftMsg.setText(item.getContent());
+            }
+            else if(item.getType()==Msg.TYPE_SENT){
+                rightLayout.setVisibility(View.VISIBLE);
+                leftLayout.setVisibility(View.GONE);
+                rightMsg.setText(item.getContent());
+            }
         }
-        else if(msg.getType()==Msg.TYPE_SENT){
-            holder.rightLayout.setVisibility(View.VISIBLE);
-            holder.leftLayout.setVisibility(View.GONE);
-            holder.rightMsg.setText(msg.getContent());
+        static ViewHolder create(ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.msg_item, parent, false);
+            return new ViewHolder(view);
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return mMsgList.size();
+    public static class MsgDiff extends DiffUtil.ItemCallback<Msg> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Msg oldItem, @NonNull Msg newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Msg oldItem, @NonNull Msg newItem) {
+            return oldItem.getContent().equals(newItem.getContent());
+        }
     }
 }

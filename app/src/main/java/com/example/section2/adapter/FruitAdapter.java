@@ -1,6 +1,5 @@
 package com.example.section2.adapter;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.section2.FragmentTabActivity;
 import com.example.section2.R;
 import com.example.section2.entity.Fruit;
 
@@ -47,10 +47,19 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         Fruit fruit=mFruitList.get(position);
         holder.fruitImage.setImageResource(fruit.getImageId());
         holder.fruitName.setText(fruit.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentTabActivity) v.getContext()).onClickCalled("your argument here");
+            }
+        });
+
     }
 
     @Override
     public int getItemCount(){
         return mFruitList.size();
     }
+
+
 }

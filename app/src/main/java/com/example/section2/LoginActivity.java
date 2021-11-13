@@ -10,6 +10,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
+
 public class LoginActivity extends BaseActivity{
     private EditText aEdit;
     private EditText pEdit;
@@ -22,7 +25,11 @@ public class LoginActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //setTitle("Login");
+
+        setContentView(R.layout.login_fragment);
+
+
         pref= PreferenceManager.getDefaultSharedPreferences(this);
 
         aEdit=(EditText) findViewById(R.id.account);
@@ -55,8 +62,8 @@ public class LoginActivity extends BaseActivity{
                         editor.clear();
                     }
                     editor.apply();
-                    //Intent intent=new Intent(LoginActivity.this,FragmentTabActivity.class);
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent=new Intent(LoginActivity.this,FragmentTabActivity.class);
+                    //Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
                 else{

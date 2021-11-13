@@ -1,129 +1,148 @@
 package com.example.section2;
 
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.section2.fragments.ContactFragment;
 import com.example.section2.fragments.ContextFragment;
 
+import android.annotation.SuppressLint;
+import androidx.appcompat.app.ActionBar;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.example.section2.R;
-public class FragmentTabActivity extends AppCompatActivity implements View.OnClickListener {
+
+import com.example.section2.fragments.LoginFragment;
+import com.example.section2.fragments.NewsTitleFragment;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
+
+public class FragmentTabActivity extends BaseActivity{
 
     public String[] btnTitles = new String[]{"Message","Contact", "Status"};// 按钮标题
     public List<Fragment> contextFragments = new ArrayList<>();// 用来存放Fragments的集合
-    public LinearLayout linearLayout;
+    public BottomNavigationView bottomNavigationView;
+    public ActionBar actionbar;
+    private DrawerLayout mDrawer;
+    public NavigationView drawerNavigation;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    //action bar item
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //code for item select event handling
+        switch (item.getItemId()) {
+            //android.R 系统内部预先定义好的资源
+
+            //R 工程师自定义的资源
+            case android.R.id.home:
+                mDrawer.openDrawer(Gravity.RIGHT);
+                return true;
+            case R.id.search:
+                actionbar.setTitle("first");
+                return true;
+            case R.id.filter:
+                actionbar.setTitle("filter");
+            default:
+                break;
+        }
+        return false;
+    }
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("TEST");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_fragment_tab);
+        setSupportActionBar(findViewById(R.id.app_bar));
+        actionbar=getSupportActionBar();
+        NewsTitleFragment newsTitleFragment=new NewsTitleFragment();
+        ContactFragment contactFragment=new ContactFragment();
+        mDrawer=(DrawerLayout) findViewById(R.id.drawer_layout) ;
+        bottomNavigationView=(BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener(){
 
-        init();// 初始化控件
-    }
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-    /**
-     * 初始化控件
-     */
-    private void init() {
-        // 初始化按钮
-        initButton();
-
-        // 初始化Fragment
-        initFragment();
-    }
-
-    /**
-     * 初始化按钮控件
-     */
-    public void initButton() {
-        // 获取存放按钮的LinearLayout
-        linearLayout = findViewById(R.id.buttonLayout);
-
-        // 遍历按钮标题数组，动态添加按钮
-        for (String btnStr: btnTitles) {
-
-            Button btn = new Button(this);
-            btn.setText(btnStr);
-            btn.setTag(btnStr);// 存放Tag,值为按钮标题文本
-
-            // 设置按钮样式
-            //btn.setBackgroundColor(Color.WHITE);
-            LinearLayout.LayoutParams btnLayoutParams =
-                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-
-            // 添加点击事件
-            btn.setOnClickListener(this);
-
-            // 将按钮加入LinearLayout
-            linearLayout.addView(btn, btnLayoutParams);
-        }
-    }
-
-    /**
-     * 初始化Fragment
-     */
-    public void initFragment() {
-
-        // 获取FragmentManager
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // 开始事务管理
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        // 添加按钮对应的Fragment
-        for (String btnStr: btnTitles) {
-
-            // 声明一个ContextFragment
-            ContextFragment contextFragment = new ContextFragment();
-
-            // 将ContextFragment添加到contextFrameLayout，并设置tag为按钮的标题
-            // （这里的Tag和按钮的Tag是一样的，按钮点击事件中用按钮的Tag查找Fragment）
-            transaction.add(R.id.contextFrameLayout, contextFragment, btnStr);
-
-            // 设置ContextFragment中文本的值，这里用Bundle传值
-            Bundle bundle = new Bundle();
-            bundle.putString("textValue", btnStr);
-            contextFragment.setArguments(bundle);
-
-            // 将contextFragment加入Fragment集合中
-            contextFragments.add(contextFragment);
-        }
-        // 提交事务
-        transaction.commit();
-
-        // 显示第一个Fragment,隐藏其它的Fragment
-        showFragment(btnTitles[0]);
-    }
-
-    /**
-     * 显示指定的Fragment
-     * @param tag
-     */
-    public void showFragment(String tag) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        // 遍历contextFragments
-        for (Fragment fragment: contextFragments) {
-            if (fragment.getTag().equals(tag)) {// tag一样，显示Fragment
-                transaction.show(fragment);
-            } else {// 隐藏Fragment
-                transaction.hide(fragment);
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        actionbar.setTitle("1");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, contactFragment).commit();
+                        return true;
+                    case R.id.page_2:
+                        actionbar.setTitle("2");
+                        break;
+                    case R.id.page_3:
+                        actionbar.setTitle("3");
+                        break;
+                }
+                return true;
             }
-        }
-        transaction.commit();
+        });
+
+
+
+
+        drawerNavigation=(NavigationView) findViewById(R.id.drawer_navigation);
+        drawerNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.first:
+                        actionbar.setTitle("BIG");
+                        Intent intent=new Intent(FragmentTabActivity.this,NewsActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.second:
+                        actionbar.setTitle("2");
+                        return true;
+                    case R.id.third:
+                        actionbar.setTitle("3");
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
     }
 
-    @Override
-    public void onClick(View view) {
-        // 显示相应的Fragment
-        showFragment(view.getTag().toString());
+    public void onClickCalled(String anyValue) {
+        // Call another acitivty here and pass some arguments to it.
+        actionbar.setTitle("Chat");
+        Intent intent=new Intent(FragmentTabActivity.this,ChatActivity.class);
+        startActivity(intent);
     }
+
+
+
+
 }
