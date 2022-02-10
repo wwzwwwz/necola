@@ -7,6 +7,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"
 
+        // jsonschema2pojo generates a Java representation of your json schema. The schema reference describes the rules and their effect on generated Java types.
+        classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:latest.integration'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 

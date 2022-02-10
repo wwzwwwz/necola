@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.section2">
-
+    package="com.example.necola">
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/strawberry"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/strawberry"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Section2">
+        android:theme="@style/Theme.necola.night"
+        android:usesCleartextTraffic="true">
+        <service android:name="com.example.necola.service.MessageService"
+                 android:exported="true"/>
+        <service android:name=".service.foreground.SoundintentService"
+                 android:enabled="true"
+                 android:exported="true"/>
+        <service
+            android:name=".service.foreground.SoundService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".service.io.DownloadService"
+            android:enabled="true"
+            android:exported="true" />
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".LoginActivity"
-                  android:exported="true" >
+        <activity
+            android:launchMode="singleTask"
+            android:name="com.example.necola.RegisterActivity"
+            android:exported="true" />
+        <activity android:name="com.example.necola.WebViewActivity" />
+        <activity
+            android:launchMode="singleTop"
+            android:name="com.example.necola.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".FragmentTabActivity"
-            android:exported="true" >
-        </activity>
-
-        <activity
-            android:name=".NewsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".NewsContentActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TestLayoutActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ChatActivity"
+            android:name="com.example.necola.FragmentTabActivity"
             android:exported="true">
-
         </activity>
         <activity
-            android:name=".ThirdActivity"
+            android:name="com.example.necola.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".SecondActivity"
-            android:exported="true"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="com.example.section2.ACTION_START" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:name="com.example.necola.SearchContentActivity"
+            android:exported="true" />
         <activity
-            android:name=".FirstActivity"
-            android:exported="true"
-            android:label="This is First Activity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:name="com.example.necola.ChatActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

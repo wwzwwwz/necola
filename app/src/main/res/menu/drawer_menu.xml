@@ -8,14 +8,27 @@
         <item
             android:id="@+id/first"
             android:icon="@drawable/apple"
-            android:title="First Menu" />
+            android:title="Start-Download" />
         <item
             android:id="@+id/second"
             android:icon="@drawable/blackberry"
-            android:title="Second Menu" />
+            android:title="Pause-Download" />
         <item
             android:id="@+id/third"
             android:icon="@drawable/cherries"
-            android:title="Third Menu" />
+            android:title="Cancel-Download" />
+        <item
+            android:id="@+id/fourth"
+            android:icon="@drawable/cherries"
+            android:title="TEST Web" />
+        <item
+            android:id="@+id/test_news"
+            android:icon="@drawable/cherries"
+            android:title="TEST News" />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/cherries"
+            android:title="Logout" />
     </group>
 </menu>
