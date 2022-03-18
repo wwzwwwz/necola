@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,100 +20,156 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/app_toolbar" />
 
-    <!-- 用来存放Fragment -->
-
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom">
-
+            <include layout="@layout/app_toolbar"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/scrollView"
+                android:id="@+id/toolbar"/>
+            <!-- 用来存放Fragment -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintBottom_toTopOf="@id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="610dp">
             <FrameLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="570dp" />
+                android:layout_height="match_parent"
+                />
+            </androidx.core.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+            <RelativeLayout
+
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_gravity="bottom"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView"
+                >
 
-                <FrameLayout
-                    android:id="@+id/standard_bottom_sheet"
-                    style="?attr/bottomSheetStyle"
+                <com.google.android.material.card.MaterialCardView
+
+                    style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+                    app:cardElevation="1dp">
 
                     <!-- Bottom sheet contents. -->
-                    <RelativeLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="10dp"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/sheet_songicon"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
+                            android:layout_height="match_parent"
                             android:src="@drawable/strawberry"
-                            android:text="AlbumIcon" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="100dp"
-                            android:text="Hello World" />
 
-                        <Button
-                            app:icon="@drawable/baseline_play_arrow_24"
-                            android:id="@+id/sheet_play"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="1dp"
-                            android:layout_toStartOf="@+id/sheet_next"
-                            style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="180dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/sheet_songicon"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_editor_absoluteX="67dp">
 
-                        <Button
-                            app:icon="@drawable/baseline_skip_next_24"
-                            android:id="@+id/sheet_next"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_toStartOf="@+id/sheet_queue"
-                            style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
+                            <com.google.android.material.textview.MaterialTextView
 
-                        <Button
-                            app:icon="@drawable/baseline_queue_music_24"
-                            android:id="@+id/sheet_queue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="4dp"
-                            style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
+                                android:id="@+id/playbar_title"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="None" />
 
-                    </RelativeLayout>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/playbar_artists"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="None" />
+                        </LinearLayout>
 
-                </FrameLayout>
+                        <com.google.android.material.imageview.ShapeableImageView
+
+                            android:id="@+id/playbar_play"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toStartOf="@+id/playbar_queue"
+                            android:src="@drawable/play_pause_selector"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/playbar_queue"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/playbar_queue"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toStartOf="@+id/playbar_search"
+                            android:src="@drawable/baseline_queue_music_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/playbar_search"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/playbar_search"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_navigation"
-                    style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+                    style="@style/Widget.Material3.NavigationView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="?attr/colorSurface"
+                    app:itemIconTint="?attr/colorPrimary"
+                    app:itemTextColor="?attr/colorPrimary"
                     app:menu="@menu/bottom_navigation_menu" />
 
-            </LinearLayout>
-        </RelativeLayout>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <!-- The navigation drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/drawer_navigation"

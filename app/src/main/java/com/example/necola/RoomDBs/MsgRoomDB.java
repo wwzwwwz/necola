@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.necola.DAO.MsgDAO;
+import com.example.necola.RoomDBs.DAO.MsgDAO;
 import com.example.necola.entity.Msg;
 
 import java.util.concurrent.ExecutorService;

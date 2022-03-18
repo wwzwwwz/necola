@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/Widget.Material3.CardView.Filled"
+    android:orientation="vertical"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_width="110dp"
+    android:layout_height="150dp">
+<com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/recommend_cover"
+    android:elevation="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    >
+</com.google.android.material.imageview.ShapeableImageView>
+    <com.google.android.material.textview.MaterialTextView
+        android:maxLines="2"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/recommend_name"/>
+
+</com.google.android.material.card.MaterialCardView>

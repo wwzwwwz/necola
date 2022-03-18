@@ -27,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("BaseActivity","#DEBUG:"+getClass().getSimpleName());
         ActivityCollector.addActivity(this);
+
     }
     @Override
     protected void onResume(){

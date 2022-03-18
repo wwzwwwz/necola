@@ -3,16 +3,70 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_account_circle_24.xml" value="0.11770833333333333" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_arrow_back_ios_24.xml" value="0.16944444444444445" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_chat_bubble_outline_24.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_more_vert_24.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_pause_24.xml" value="0.20925925925925926" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_person_outline_24.xml" value="0.18125" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_play_arrow_24.xml" value="0.20925925925925926" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_queue_music_24.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/baseline_window_24.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/circle_button_sound_notif_shape.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/close_menu.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/filter.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/logged_out.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/more.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/outline_expand_more_24.xml" value="0.1140625" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/outline_mail_24.xml" value="0.18333333333333332" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/outline_public_24.xml" value="0.18125" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/play_pause_selector.xml" value="0.18981481481481483" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/product_grid_background_shape.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/drawable/search.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout-sw600dp/activity_news.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout-sw600dp/item_artist_card.xml" value="0.1125" />
+        <entry key="..\:/Necola/app/src/main/res/layout-w936dp/dialog_bottom_sheet_playfull.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_aggregation.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_chat.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_content_artist.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_content_leaderboard.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/activity_fragment_tab.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/activity_news_content.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_register.xml" value="0.12462311557788945" />
         <entry key="..\:/Necola/app/src/main/res/layout/activity_search_content.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/activity_surface.xml" value="0.2" />
+        <entry key="..\:/Necola/app/src/main/res/layout/app_toolbar.xml" value="0.264" />
+        <entry key="..\:/Necola/app/src/main/res/layout/contact_item.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/dialog_bottom_sheet_playfull.xml" value="0.2" />
+        <entry key="..\:/Necola/app/src/main/res/layout/dialog_bottom_sheet_playqueue.xml" value="0.264" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_aggregation_netease_music_sync.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_aggregation_qq_music.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_contact.xml" value="0.15677083333333333" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_discover.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_favorites.xml" value="0.3625" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.152" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.10185185185185185" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_me.xml" value="0.10052083333333334" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_playing.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_recent_play_list_dialog_list_dialog_item.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/fragment_search_content.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/fragment_search_title.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/fragment_status.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_artist_card.xml" value="0.20659340659340658" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_contact.xml" value="0.25" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_country_region_dropdown.xml" value="0.25" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_msg.xml" value="0.159375" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_recommend_card.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_search.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/item_search_edit.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/item_viewpager.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/layout/radio_notification.xml" value="0.1" />
         <entry key="..\:/Necola/app/src/main/res/layout/recyclerview_item.xml" value="0.1" />
+        <entry key="..\:/Necola/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2407766990291262" />
+        <entry key="..\:/Necola/app/src/main/res/menu/drawer_menu.xml" value="0.4" />
         <entry key="..\:/Necola/app/src/main/res/menu/toolbar_menu.xml" value="0.25" />
+        <entry key="..\:/Necola/app/src/main/res/menu/toolbar_menu_playing.xml" value="0.264" />
         <entry key="..\:/Necola/app/src/main/res/menu/toolbar_menu_search.xml" value="0.1" />
       </map>
     </option>

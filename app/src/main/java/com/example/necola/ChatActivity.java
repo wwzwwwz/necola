@@ -1,11 +1,6 @@
 package com.example.necola;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.necola.ViewModel.MsgViewModel;
-import com.example.necola.adapter.MsgAdapter;
+import com.example.necola.RoomDBs.model.MsgAdapter;
+import com.example.necola.RoomDBs.model.MsgViewModel;
 import com.example.necola.entity.Msg;
-import com.example.necola.service.MessageService;
 import com.example.necola.utils.SocketIOClient;
 
 public class ChatActivity extends BaseActivity{
@@ -32,7 +26,7 @@ public class ChatActivity extends BaseActivity{
     private MsgViewModel msgViewModel;
     private MsgAdapter adapter;
 
-    private MessageService mService;
+
     boolean mBound=false;
 
     @Override
@@ -40,14 +34,13 @@ public class ChatActivity extends BaseActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu_chat, menu);
         //actionbar.setTitle(currentContact);
+
         return true;
     }
     //action bar item
     public boolean onOptionsItemSelected(MenuItem item) {
-        //code for item select event handling
         switch (item.getItemId()) {
-            //android.R 系统内部预先定义好的资源
-            case android.R.id.home:
+            case R.id.expand_less:
                 onBackPressed();
                 return true;
             //R 工程师自定义的资源
@@ -116,38 +109,7 @@ public class ChatActivity extends BaseActivity{
     }
 
 
-    //目前还没有用到绑定服务的功能，MessageService实际上只是一个单纯的后台服务
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Intent intent=new Intent(this, MessageService.class);
-        bindService(intent,connection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(connection);
-        mBound = false;
-    }
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection connection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            mService=((MessageService.LocalBinder)service).getService();
-            mBound = true;
 
 
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
 
 }

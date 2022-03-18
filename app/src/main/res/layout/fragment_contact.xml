@@ -1,99 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".TestLayoutActivity">
+    android:orientation="vertical">
 
-    <Button
-        android:layout_gravity="top"
+    <LinearLayout
+        android:id="@+id/contact_layout"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="?attr/colorPrimary"></View>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:id="@+id/choose_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button 1"
-        android:id="@+id/button_1s" />
-    <Button
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button 1"
-        android:id="@+id/button_2s" />
-    <Button
         android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button 1"
-        android:id="@+id/button_3s" />
 
-</LinearLayout>
-
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".TestLayoutActivity">
-
-<Button
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="top"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button 1"
-    android:id="@+id/button_1s" />
-<Button
-    android:layout_alignParentRight="true"
-    android:layout_alignParentTop="true"
-    android:layout_gravity="center_vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button 1"
-    android:id="@+id/button_2s" />
-<Button
-    android:layout_centerInParent="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button 1"
-    android:id="@+id/button_3s" />
-<Button
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentLeft="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button 1"
-    android:id="@+id/button_4s" />
-<Button
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button 1"
-    android:id="@+id/button_5s" />
-</RelativeLayout>
+        android:src="@drawable/outline_edit_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact_layout"
+        app:layout_constraintVertical_bias="1.0" />
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_view"/>
-</LinearLayout>
-
--->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_view"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ public class Music {
         long mvId;
         SongData songData;
 
+
         public Song(long id, String name, ArrayList<Artist> artists, Album album, long mvId){
             this.id=id;
             this.name=name;
@@ -28,7 +29,18 @@ public class Music {
             this.mvId=mvId;
             //songData=getSongData();
         }
+        public String getArrayListToString(){
+            String temp="";
+            for( int i=0;i<this.artists.size();i++)
+            {
+                if (i!=this.artists.size()-1)
+                    temp=temp+this.artists.get(i).getName()+"/";
+                else
+                    temp=temp+this.artists.get(i).getName();
+            }
 
+            return  temp;
+        }
         public String getTitle(){
             return this.name;
         }
@@ -138,9 +150,15 @@ public class Music {
     static public class Artist implements Serializable{
         long id;
         String name;
-        public Artist(long id, String name){
+        String picUrl;
+        public Artist(long id, String name,String picUrl){
             this.id=id;
             this.name=name;
+            this.picUrl=picUrl;
+        }
+
+        public String getPicUrl() {
+            return picUrl;
         }
 
         public long getId() {
@@ -150,5 +168,99 @@ public class Music {
         public String getName() {
             return name;
         }
+    }
+
+    static public class Playlist{
+
+        static class Classification{
+
+        }
+        long id;
+        String name;
+        String coverImgUrl;
+        ArrayList<Song> songArrayList;
+
+        public Playlist(long id,String name,String coverImgUrl){
+            this.id=id;
+            this.name=name;
+            this.coverImgUrl=coverImgUrl;
+            setSongArraylist();
+        }
+        private void setSongArraylist(){
+            songArrayList=new ArrayList<>();
+
+        }
+
+        public ArrayList<Song> getSongArrayList() {
+            return songArrayList;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCoverImgUrl() {
+            return coverImgUrl;
+        }
+    }
+    public static class Recommend {
+        long id;
+        String name;
+        String copywriter;
+        String picUrl;
+        public Recommend(long id,String name,String copywriter,String picUrl){
+            this.id=id;
+            this.name=name;
+            this.copywriter=copywriter;
+            this.picUrl=picUrl;
+
+        }
+        public void setCopywriter(String copywriter) {
+            this.copywriter = copywriter;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setPicUrl(String picUrl) {
+            this.picUrl = picUrl;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public String getCopywriter() {
+            return copywriter;
+        }
+
+        public String getPicUrl() {
+            return picUrl;
+        }
+    }
+
+
+    static public class PlayQueue{
+        ArrayList<Song> playingSongsQueue;
+        ArrayList<Song> localSongsQueue;
+        ArrayList<Song> recentSongsQueue;
+        ArrayList<Album> recentAlbums;
+        ArrayList<Playlist> recentPlaylists;
+        ArrayList<Recommend> recommendPlaylists;
+
+        public PlayQueue(){}
     }
 }

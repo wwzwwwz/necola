@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/apple"
-        android:title="@string/contact"/>
+        android:id="@+id/discover"
+        android:icon="@drawable/baseline_window_24"
+        android:title=""
+        />
+<!--
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/status"
         android:enabled="true"
-        android:icon="@drawable/blackberry"
+        android:icon="@drawable/outline_public_24"
         android:title="@string/status"/>
+
+-->
     <item
-        android:id="@+id/page_3"
+        android:id="@+id/me"
         android:enabled="true"
-        android:icon="@drawable/cherries"
-        android:title="@string/more"/>
+        android:icon="@drawable/baseline_person_outline_24"
+        android:title=""/>
+    <item
+
+        android:id="@+id/chat"
+        android:enabled="true"
+        android:icon="@drawable/outline_mail_24"
+        android:title=""/>
+
+
 
 
 </menu>

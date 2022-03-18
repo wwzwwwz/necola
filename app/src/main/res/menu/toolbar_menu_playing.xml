@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/toolbar_artists"
+        android:title="Artist Name"
+        app:showAsAction="ifRoom"/>
+    <item
+
+        android:id="@+id/expand_less"
+        android:icon="@drawable/outline_expand_more_24"
+        android:title=""
+
+        app:showAsAction="always"/>
+
+
+</menu>

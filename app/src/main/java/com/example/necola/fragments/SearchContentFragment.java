@@ -25,6 +25,9 @@ public class SearchContentFragment extends Fragment   {
         visibilityLayout.setVisibility(View.VISIBLE);
         TextView newsTitleText=view.findViewById(R.id.music_title);
         //TextView newsContentText=(TextView) view.findViewById(R.id.music_content_layout);
+        if (song!=null)
         newsTitleText.setText(song.getTitle());
+        else
+            newsTitleText.setText("None");
     }
 }

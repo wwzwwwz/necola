@@ -55,10 +55,11 @@ public class RegisterActivity extends BaseActivity {
                 String sex=sexEdit.getText().toString();
 
                 if (password.equals(password2)) {
-                    if(Auth.register(username,password)) {
+                    if(Auth.register(RegisterActivity.this,username,password)) {
 
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
+                        RegisterActivity.this.finish();
                         Toast.makeText(RegisterActivity.this, "Register Success! Please Login!", Toast.LENGTH_SHORT).show();
                     }
                     else

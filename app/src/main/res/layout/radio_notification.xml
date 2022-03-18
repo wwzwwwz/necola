@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <RelativeLayout
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <ImageButton
+            style="@style/Widget.Material3.Button.IconButton"
             android:id="@+id/ui_notification_player_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -16,8 +15,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="8dp"
+
             android:background="@drawable/circle_button_sound_notif_shape"
-            android:src="@android:drawable/ic_media_play" />
+            android:src="@drawable/play_pause_selector" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -29,23 +29,25 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/sound_music_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:paddingLeft="5dp"
                 android:paddingRight="7dp"
-                android:text="@string/text_value_radio_notification"
+                android:text="None"
                 android:textSize="16sp"
-                android:theme="@style/TitleTextSoundNotificatonTheme" />
+              />
 
             <TextView
+                android:id="@+id/sound_music_artists"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
                 android:gravity="left"
                 android:paddingLeft="5dp"
                 android:paddingRight="7dp"
-                android:text="@string/app_name"
+                android:text="None"
                 android:textColor="#828282"
                 android:textSize="14sp" />
 
@@ -56,16 +58,17 @@
             android:id="@+id/ui_notification_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ui_notification_player_button"
-            android:layout_alignEnd="@+id/ui_notification_player_button"
-            android:layout_alignLeft="@+id/ui_notification_player_button"
-            android:layout_alignRight="@+id/ui_notification_player_button"
             android:layout_alignStart="@+id/ui_notification_player_button"
+            android:layout_alignLeft="@+id/ui_notification_player_button"
             android:layout_alignTop="@+id/ui_notification_player_button"
+            android:layout_alignEnd="@+id/ui_notification_player_button"
+            android:layout_alignRight="@+id/ui_notification_player_button"
+            android:layout_alignBottom="@+id/ui_notification_player_button"
             android:indeterminate="true"
             android:theme="@style/ProgressBarSoundNotificatonTheme" />
 
-        <ImageButton
+        <TextView
+            style="@style/Widget.Material3.Button.IconButton"
             android:id="@+id/ui_notification_close_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -77,4 +80,3 @@
             android:src="@drawable/ic_close_white" />
 
     </RelativeLayout>
-</RelativeLayout>

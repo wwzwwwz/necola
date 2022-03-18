@@ -7,44 +7,38 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     >
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:longClickable="true"
         android:id="@+id/left_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:background="@drawable/baseline_chat_bubble_outline_24">
+        android:layout_gravity="left">
 
-        <TextView
-            android:onClick="onClick"
-            android:clickable="true"
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#fff"
             android:id="@+id/left_msg"/>
 
-    </LinearLayout>
-    <LinearLayout
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:longClickable="true"
         android:id="@+id/right_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/baseline_chat_bubble_outline_24"
-        android:rotation="180">
+   >
 
-        <TextView
-
-            android:onClick="onClick"
-            android:clickable="true"
-            android:rotation="180"
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#fff"
             android:id="@+id/right_msg"/>
 
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

@@ -21,7 +21,7 @@
             android:name="com.example.necola.fragments.SearchTitleFragment"
             android:id="@+id/music_title_fragment"/>
         <FrameLayout
-            android:id="@+id/news_content_layout"
+            android:id="@+id/music_content_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3">

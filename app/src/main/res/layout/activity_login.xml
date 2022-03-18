@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D8AD78"
     >
 
 
@@ -17,20 +16,15 @@
         android:padding="24dp"
         android:paddingTop="16dp">
 
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="16dp"
-            app:srcCompat="@drawable/apple" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
+
+            style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="132dp"
-            android:text="@string/app_name"
+            android:layout_gravity="left"
+            android:layout_marginBottom="200dp"
+            android:text="LOGIN"
             android:textAllCaps="true"
             android:textSize="16sp" />
 
@@ -65,12 +59,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/remeber_pswd"
                 />
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -84,13 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/button_next" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/button_register" />
 
 
 

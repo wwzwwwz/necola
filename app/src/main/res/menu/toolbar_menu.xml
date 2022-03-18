@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/search"
-        android:title="@string/search_title"
-        app:showAsAction="always" />
-    <item
+
         android:id="@+id/more"
-        android:icon="@drawable/baseline_more_vert_24"
+        android:icon="@drawable/more"
+        android:title="More"
+        app:showAsAction="always"/>
+
+
+    <!--
+    <item
+
+        android:id="@+id/more"
+        android:icon="@drawable/more"
         android:title="@string/search_title"
         app:showAsAction="always">
 
@@ -19,4 +26,5 @@
                 android:title="Open Camera" />
         </menu>
     </item>
+    -->
 </menu>
