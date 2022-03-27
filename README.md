@@ -2,4 +2,4 @@
 
 
 ## GIF Preview
-<img src="https://github.com/wwzwwwz/necola/preview.gif" alt="show" />
+<img src="https://github.com/wwzwwwz/necola/blob/master/preview.gif" alt="show" />
