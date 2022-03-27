@@ -53,7 +53,7 @@ public class DiscoverFragment extends Fragment {
 
     List<CollectionFragment> fragmentList;
     // images array
-    int[] images = {R.drawable.surface,R.drawable.mi_smile,R.drawable.mi};
+    int[] images = {R.drawable.surface,R.drawable.mi_smile,R.drawable.sun};
 
     // Creating Object of ViewPagerAdapter
     GalleryViewPagerAdapter mViewPagerAdapter;
@@ -140,9 +140,10 @@ public class DiscoverFragment extends Fragment {
                             public void run() {
 
                                 // Stuff that updates the UI
-                                RecommendAdapter adapter2=new RecommendAdapter((List<Music.Recommend>) recommends.subList(0,recommends.size()/2));
+                                int size=recommends.size();
+                                RecommendAdapter adapter2=new RecommendAdapter((List<Music.Recommend>) recommends.subList(0,size/2));
                                 recommendView2.setAdapter(adapter2);
-                                RecommendAdapter adapter=new RecommendAdapter((List<Music.Recommend>) recommends.subList(recommends.size()/2+1,recommends.size()));
+                                RecommendAdapter adapter=new RecommendAdapter((List<Music.Recommend>) recommends.subList(size/2,size));
                                 recommendView.setAdapter(adapter);
                                 recommendView.scrollToPosition(adapter.getItemCount()-1);
 

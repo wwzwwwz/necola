@@ -7,7 +7,12 @@ import androidx.annotation.NonNull;
 
 import com.example.necola.databinding.FragmentItemRecentPlaylistDialogItemBinding;
 import com.example.necola.databinding.FragmentItemRecentPlaylistDialogListLayoutBinding;
+import com.example.necola.entity.Music;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -27,17 +34,21 @@ import android.widget.TextView;
  */
 public class RecentPlaylistDialogFragment extends BottomSheetDialogFragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_ITEM_COUNT = "item_count";
+    //Customize parameter argument names
+    //private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentItemRecentPlaylistDialogListLayoutBinding binding;
+    RecyclerView recyclerView;
 
-    // TODO: Customize parameters
-    public static RecentPlaylistDialogFragment newInstance(int itemCount) {
+    public static RecentPlaylistDialogFragment newInstance() {
         final RecentPlaylistDialogFragment fragment = new RecentPlaylistDialogFragment();
-        final Bundle args = new Bundle();
-        args.putInt(ARG_ITEM_COUNT, itemCount);
-        fragment.setArguments(args);
+        //final Bundle args = new Bundle();
+        //args.putInt(ARG_ITEM_COUNT, itemCount);
+        //fragment.setArguments(args);
         return fragment;
+    }
+
+    public void refresh(ArrayList<Music.RecentPlay<Music.Playlist>> recentPlaylistArrayList) {
+        recyclerView.setAdapter(new RecentPlaylistDialogFragment.RecentPlaylistAdapter(recentPlaylistArrayList));
     }
 
     @Nullable
@@ -52,9 +63,9 @@ public class RecentPlaylistDialogFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(new RecentPlaylistDialogFragment.RecentPlaylistAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
+
     }
 
     @Override
@@ -65,21 +76,27 @@ public class RecentPlaylistDialogFragment extends BottomSheetDialogFragment {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView text;
+        final MaterialCardView item;
+        final MaterialTextView name;
+        final ShapeableImageView image;
+
 
         ViewHolder(FragmentItemRecentPlaylistDialogItemBinding binding) {
             super(binding.getRoot());
-            text = binding.text;
+            item=binding.item;
+            name=binding.name;
+            image=binding.image;
+
         }
 
     }
 
     private class RecentPlaylistAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private final int mItemCount;
+        ArrayList<Music.RecentPlay<Music.Playlist>> recentPlaylist;
 
-        RecentPlaylistAdapter(int itemCount) {
-            mItemCount = itemCount;
+        RecentPlaylistAdapter(ArrayList<Music.RecentPlay<Music.Playlist>> recentPlaylist) {
+           this.recentPlaylist=recentPlaylist;
         }
 
         @NonNull
@@ -92,12 +109,20 @@ public class RecentPlaylistDialogFragment extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.valueOf(position));
+            Music.RecentPlay<Music.Playlist> playlist=recentPlaylist.get(position);
+            holder.name.setText(playlist.getResource().getName());
+            Picasso.get().load(playlist.getResource().getCoverImgUrl()).into(holder.image);
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return mItemCount;
+            return recentPlaylist.size();
         }
 
     }

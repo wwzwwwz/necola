@@ -10,6 +10,15 @@ import com.example.necola.R;
 public class SongBoardFragment extends CollectionFragment {
 
 
+    String name;
+    public SongBoardFragment(String name){
+        this.name=name;
+
+    }
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
 
     @Override
@@ -23,8 +32,5 @@ public class SongBoardFragment extends CollectionFragment {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Song";
-    }
+
 }

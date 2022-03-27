@@ -37,7 +37,7 @@ public class BoardcastTest {
         //assertEquals("com.example.section2", appContext.getPackageName());
         NeteaseMusicAPI.syncByLoginNetease(appContext,"17733155129","Qwer43@10");
         //Auth.login(appContext,"test","1234");
-        NeteaseMusicAPI.logout(appContext);
+        NeteaseMusicAPI.syncLogout(appContext);
 
     }
 }

@@ -17,6 +17,89 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class NeteaseMusicAPI extends ResourceUtil {
+    static public class ResourceUrl{
+
+        String url;
+        public ResourceUrl(Builder builder){
+            this.url=builder.url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+        static public class Builder{
+            Boolean noSet;
+            String url;
+            public Builder(String route){
+                this.url= ResourceUtil.MUSIC_LIBRARY_HOST+route;
+                this.noSet=true;
+            }
+
+            public Builder setType(int type){
+                if (noSet)
+                    this.url= this.url+"?type="+type;
+                else
+                    this.url= this.url+"&type="+type;
+                noSet=false;
+                return this;
+            }
+
+            public Builder setArea(int area){
+
+                if (noSet)
+                {
+                    this.url= this.url+"?area="+area;
+                    noSet=false;
+                }
+                else
+                    this.url= this.url+"&area="+area;
+
+                return this;
+            }
+
+            public Builder setLimit(int limit){
+                if (noSet)
+                {
+                    this.url= this.url+"?limit="+limit;
+                    noSet=false;
+                }
+                else
+                    this.url= this.url+"&limit="+limit;
+
+                return this;
+            }
+            public Builder setOffset(int offset){
+
+                if (noSet) {
+                    this.url = this.url + "?offset=";
+                    noSet = false;
+                }
+                else
+                    this.url= this.url+"&offset=";
+
+                return this;
+            }
+            public Builder setInitial(String c){
+
+                if (noSet)
+                {
+                    this.url= this.url+"?initial="+c;
+                    noSet=false;
+                }
+                else
+                    this.url= this.url+"&initial="+c;
+
+                return this;
+            }
+            public ResourceUrl build(){
+                noSet=true;
+                return new ResourceUrl(this);
+            }
+        }
+
+
+
+    }
 
     static public boolean syncByLoginNetease(Context context, String username, @NonNull String password) {
 
@@ -38,7 +121,7 @@ public class NeteaseMusicAPI extends ResourceUtil {
 
     }
 
-    static public boolean logout(Context context) {
+    static public boolean syncLogout(Context context) {
 
 
         String address = ResourceUtil.MUSIC_LIBRARY_HOST + "logout";

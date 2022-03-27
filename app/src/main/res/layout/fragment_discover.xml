@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<FrameLayout
+    android:id="@+id/fragment_discover"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -52,26 +56,28 @@
             app:layout_constraintTop_toBottomOf="@+id/gallery_layout">
 
         <LinearLayout
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <com.google.android.material.button.MaterialButton
+
                     style="@style/Widget.Material3.Button.IconButton"
                     android:id="@+id/leaderboard"
-                    android:text="Leaderboard"
+                    android:text="@string/leaderboard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/outline_leaderboard_24"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/artist"
                     style="@style/Widget.Material3.Button.IconButton"
-                    android:text="Artist"
+                    android:text="@string/artist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/outline_groups_24"/>
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.Material3.Button.IconButton"
-                    android:text="Classification"
+                    android:text="@string/classification"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/outline_difference_24"/>
@@ -105,7 +111,7 @@
                     android:textColor="?attr/colorPrimary"
                     android:layout_marginStart="15dp"
                     style="@style/TextAppearance.Material3.TitleMedium"
-                    android:text="Recommend"
+                    android:text="@string/personal_recommendation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -393,3 +399,4 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+</FrameLayout>

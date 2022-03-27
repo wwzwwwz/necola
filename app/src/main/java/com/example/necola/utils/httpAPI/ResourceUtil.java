@@ -1,8 +1,5 @@
 package com.example.necola.utils.httpAPI;
 import android.content.Context;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -12,12 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
@@ -160,8 +153,6 @@ public class ResourceUtil{
 
 
     }
-
-
 
 
 }

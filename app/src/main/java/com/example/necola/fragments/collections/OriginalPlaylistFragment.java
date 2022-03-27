@@ -10,8 +10,14 @@ import com.example.necola.R;
 
 public class OriginalPlaylistFragment extends CollectionFragment {
 
-
-
+    public static final CollectedAlbumFragment newInstance(int title)
+    {
+        CollectedAlbumFragment fragment = new CollectedAlbumFragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putInt("title", title);
+        fragment.setArguments(bundle);
+        return fragment ;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater , ViewGroup containter,
@@ -24,8 +30,5 @@ public class OriginalPlaylistFragment extends CollectionFragment {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Original Playlist";
-    }
+
 }

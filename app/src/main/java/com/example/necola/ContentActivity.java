@@ -5,30 +5,24 @@ import static com.example.necola.utils.httpAPI.ResourceUtil.handle_response;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.necola.entity.Music;
-import com.example.necola.fragments.DiscoverFragment;
 import com.example.necola.fragments.SearchContentFragment;
 import com.example.necola.fragments.collections.ArtistBoardFragment;
 import com.example.necola.fragments.collections.CollectionFragment;
 import com.example.necola.fragments.collections.SongBoardFragment;
-import com.example.necola.fragments.collections.SyncNeteaseMusicFragment;
-import com.example.necola.fragments.collections.SyncQQMusicFragment;
 import com.example.necola.fragments.collections.TabViewpager2Fragment;
 import com.example.necola.utils.httpAPI.ResourceUtil;
-import com.example.necola.utils.httpAPI.resource.netease.ArtistFilter;
+import com.example.necola.utils.httpAPI.resource.netease.NeteaseMusicAPI.ResourceUrl;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -84,12 +78,16 @@ public class ContentActivity extends BaseActivity {
         return true;
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO lazy-load or pre-load.....
         loadContentById(getIntent().getIntExtra("container_layout",R.layout.activity_surface));
     }
+
+
 
     int getCodeByResID(int id){
         switch (id){
@@ -124,8 +122,8 @@ public class ContentActivity extends BaseActivity {
             case R.layout.activity_content_leaderboard:
 
                 ArrayList<CollectionFragment> fragmentArrayList=new ArrayList<>();
-                fragmentArrayList.add(new SongBoardFragment()) ;
-                fragmentArrayList.add(new ArtistBoardFragment());
+                fragmentArrayList.add(new SongBoardFragment(getString(R.string.song))) ;
+                fragmentArrayList.add(new ArtistBoardFragment(getString(R.string.artist)));
 
                 TabViewpager2Fragment fragment=new TabViewpager2Fragment(fragmentArrayList);
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
@@ -170,7 +168,7 @@ public class ContentActivity extends BaseActivity {
                                         @Override
                                         public void run() {
                                             // Stuff that updates the UI
-                                             ArtistFilter.ArtistViewAdapter adapter=new ArtistFilter.ArtistViewAdapter(artists);
+                                             ArtistViewAdapter adapter=new ArtistViewAdapter(artists);
                                              artistView.setAdapter(adapter);
                                         }
                                     });
@@ -181,29 +179,28 @@ public class ContentActivity extends BaseActivity {
                         }
                     }
                 };
-                ResourceUtil.asyncGET(ContentActivity.this,callback,new ArtistFilter.Builder().build().getUrl());
+                ResourceUtil.asyncGET(ContentActivity.this,callback,new ResourceUrl.Builder("artist/list").build().getUrl());
 
                 area.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(ChipGroup group, int checkedId) {
-                        ArtistFilter artistFilter=new ArtistFilter.Builder()
+                        ResourceUrl  resUrl=new ResourceUrl.Builder("artist/list")
                                 .setArea(getCodeByResID(checkedId))
                                 .setType(getCodeByResID(type.getCheckedChipId()))
                                 .build();
-                        String address= artistFilter.getUrl();
-                        ResourceUtil.asyncGET(ContentActivity.this,callback,address);
+
+                        ResourceUtil.asyncGET(ContentActivity.this,callback, resUrl.getUrl());
                         //Log.d("#########dd",""+getCodeByResID(checkedId));
                     }
                 });
                 type.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(ChipGroup group, int checkedId) {
-                        ArtistFilter artistFilter=new ArtistFilter.Builder()
+                        ResourceUrl  resUrl=new ResourceUrl.Builder("artist/list")
                                 .setType(getCodeByResID(checkedId))
                                 .setArea(getCodeByResID(area.getCheckedChipId()))
                                 .build();
-                        String address= artistFilter.getUrl();
-                        ResourceUtil.asyncGET(ContentActivity.this,callback,address);
+                        ResourceUtil.asyncGET(ContentActivity.this,callback,resUrl.getUrl());
                     }
                 });
 
@@ -219,4 +216,50 @@ public class ContentActivity extends BaseActivity {
         }
     }
 
+    static public class ArtistViewAdapter extends RecyclerView.Adapter<ArtistViewAdapter.ViewHolder> {
+        class ViewHolder extends RecyclerView.ViewHolder {
+            ShapeableImageView imageView;
+            MaterialTextView textView;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                imageView=itemView.findViewById(R.id.artist_img);
+                textView=itemView.findViewById(R.id.artist_name);
+            }
+        }
+
+        List<Music.Artist> artistList;
+        public ArtistViewAdapter(List<Music.Artist> artistList){
+            this.artistList=artistList;
+        }
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_artist_card,parent,false);
+            final ViewHolder holder=new ViewHolder(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            return  holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ArtistViewAdapter.ViewHolder holder, int position) {
+            Music.Artist artist=artistList.get(position);
+            holder.textView.setText(artist.getName());
+            Picasso.get().load(artist.getPicUrl()).fit().into(holder.imageView);
+            //new DownloadImageTask(holder.imageView).execute(recommendPlaylist.getPicUrl());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return artistList.size();
+        }
+
+
+    }
 }

@@ -73,19 +73,28 @@ public class SoundService extends Service implements
     private Runnable mTimerUpdateSeek=new Runnable() {
         @Override
         public void run() {
-            stateViewModel.getCurrentPlayLength().setValue((int) (mPlayer.getCurrentPosition() / (double) mPlayer.getDuration() * 100));
-           // Log.d("Test", "Player progress:" + (int) (mPlayer.getCurrentPosition() / (double) mPlayer.getDuration() * 100));
-            mTimerUpdateHandler.postDelayed(this, 0);
-            //Log.d("Thread seek","p:"+mPlayer.getCurrentPosition()+",D:"+mPlayer.getDuration());
-
-            if (!mPlayer.isPlaying()) {
+            if (mPlayer!=null) {
+                stateViewModel.getCurrentPlayLength().setValue((int) (mPlayer.getCurrentPosition() / (double) mPlayer.getDuration() * 100));
+                // Log.d("Test", "Player progress:" + (int) (mPlayer.getCurrentPosition() / (double) mPlayer.getDuration() * 100));
+                mTimerUpdateHandler.postDelayed(this, 0);
+                //Log.d("Thread seek","p:"+mPlayer.getCurrentPosition()+",D:"+mPlayer.getDuration());
+            }
+            else{
                 mTimerUpdateHandler.removeCallbacks(this);
+            }
+
+/*
+            if (!mPlayer.isPlaying()) {
+
+
                 Intent startIntent=new Intent(SoundService.this,SoundService.class);
                 startIntent.setAction(MusicConstants.ACTION.PAUSE_ACTION);
                 startService(startIntent);
                 Log.d("Thread seek","end...");
 
-            }
+
+
+            }*/
 
         }
 
@@ -143,7 +152,7 @@ public class SoundService extends Service implements
                     mUriRadio= Uri.parse(song.getSongData().getUrl());
                     stateViewModel.getCurrentTitle().setValue(song.getTitle());
                     stateViewModel.getCurrentArtists().setValue(song.getArrayListToString());
-                   // stateViewModel.getCurrentPicUrl().setValue(song.getPicUrl());
+                    stateViewModel.getCurrentPicUrl().setValue(song.getAlbumImg());
                 }
                 else{
 
@@ -166,7 +175,11 @@ public class SoundService extends Service implements
                         prepareNotification());
                 Log.i(TAG, "Clicked Pause");
                 //destroyPlayer();
+                if(mPlayer!=null)
                 mPlayer.pause();
+                else{
+                    destroyPlayer();
+                }
                 //mTimerUpdateHandler.removeCallbacks(mTimerUpdateSeek);
                 //lastPostion=mPlayer.getCurrentPosition();
 
@@ -263,11 +276,13 @@ public class SoundService extends Service implements
                 return false;
             }
         });
+
     }
 
     private void play() {
         try {
             mHandler.removeCallbacksAndMessages(null);
+            mTimerUpdateHandler.removeCallbacksAndMessages(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -27,7 +27,7 @@ public class RegisterActivity extends BaseActivity {
         aEdit = (EditText) findViewById(R.id.username);
         pEdit = (EditText) findViewById(R.id.password);
         pEdit2=(EditText) findViewById(R.id.repeat_password);
-        sexEdit=(EditText) findViewById(R.id.sex);
+        sexEdit=(EditText) findViewById(R.id.gender);
         register = (Button) findViewById(R.id.register_now);
 
         String regions[]=getResources().getStringArray(R.array.country_region_array);

@@ -2,10 +2,13 @@ package com.example.necola;
 
 import android.app.Application;
 
+import androidx.fragment.app.Fragment;
+
 public class MyApplication extends Application {
 
     private String currentUsername;
     Boolean flag;
+
     public String getCurrentUsername() {
         return currentUsername;
     }

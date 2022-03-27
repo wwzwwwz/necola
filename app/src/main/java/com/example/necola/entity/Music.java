@@ -2,6 +2,8 @@ package com.example.necola.entity;
 
 import static com.example.necola.utils.httpAPI.ResourceUtil.handle_response;
 
+import android.accounts.Account;
+
 import com.example.necola.utils.httpAPI.ResourceUtil;
 
 import org.json.JSONException;
@@ -12,6 +14,53 @@ import java.util.ArrayList;
 
 public class Music {
 
+    static public class NeteaseStatus {
+        class Account{
+            Long id;
+            int type;
+            int status;
+            public Account(Long id,int type,int status){
+                this.id=id ;
+                this.type=type;
+                this.status=status;
+            }
+        }
+        class Profile{
+            Long id;
+            String nickname;
+            String avatarUrl;
+            String backgroundUrl;
+            String signature;
+            int city;
+            Long lastLoginTime;
+
+            public Profile(Long id,String nickname,String avatarUrl,
+                           String backgroundUrl,String signature){
+                this.id=id;
+                this.nickname=nickname;
+                this.avatarUrl=avatarUrl;
+                this.backgroundUrl=backgroundUrl;
+                this.signature=signature;
+            }
+            public Profile(Long id,String nickname,String avatarUrl,
+                           String backgroundUrl,String signature,
+                           Long lastLoginTime){
+                this.id=id;
+                this.nickname=nickname;
+                this.avatarUrl=avatarUrl;
+                this.backgroundUrl=backgroundUrl;
+                this.signature=signature;
+                this.lastLoginTime=lastLoginTime;
+            }
+        }
+        Account account;
+        Profile profile;
+        public NeteaseStatus(Account account,Profile profile ){
+            this.account=account;
+            this.profile=profile;
+        }
+    }
+
     static public  class Song  implements Serializable {
         long id;
         String name;
@@ -20,7 +69,22 @@ public class Music {
         long mvId;
         SongData songData;
 
+        public String getAlbumImg(){
+            String s=getAlbum().getPicUrl();
+            if(s==null|| s.equals("")){
+                String uri=ResourceUtil.MUSIC_LIBRARY_HOST+"song/detail?ids="+this.id;
+                JSONObject result=ResourceUtil.handle_response(ResourceUtil.GET(uri));
+                try {
+                    JSONObject data= (JSONObject) result.getJSONArray("songs").get(0);
+                    return data.getJSONObject("al").getString("picUrl");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+
+            return s;
+        }
         public Song(long id, String name, ArrayList<Artist> artists, Album album, long mvId){
             this.id=id;
             this.name=name;
@@ -97,6 +161,8 @@ public class Music {
             return this.songData;
         }
 
+
+
         enum MusicType{
             mp3,flac,wav,other
         }
@@ -127,11 +193,30 @@ public class Music {
         long id;
         String name;
         Artist artist;
-        long picId;
-        public Album(long id, String name, Artist artist){
+        String picUrl;
+        ArrayList<Artist> artists;
+        public String getPicUrl() {
+            return picUrl;
+        }
+
+        public Album(long id, String name, String picUrl,Artist artist){
             this.id=id;
             this.name=name;
+            this.picUrl=picUrl;
             this.artist=artist;
+
+        }
+        public Album(long id, String name, String picUrl,ArrayList<Artist> artists){
+            this.id=id;
+            this.name=name;
+            this.picUrl=picUrl;
+            this.artists=artists;
+
+        }
+        public Album(long id, String name, String picUrl){
+            this.id=id;
+            this.name=name;
+            this.picUrl=picUrl;
 
         }
 
@@ -175,21 +260,28 @@ public class Music {
         static class Classification{
 
         }
+
         long id;
         String name;
         String coverImgUrl;
         ArrayList<Song> songArrayList;
+        NeteaseStatus.Profile creator;
 
         public Playlist(long id,String name,String coverImgUrl){
             this.id=id;
             this.name=name;
             this.coverImgUrl=coverImgUrl;
-            setSongArraylist();
-        }
-        private void setSongArraylist(){
-            songArrayList=new ArrayList<>();
 
         }
+
+        public Playlist(long id, String name, String coverImgUrl, NeteaseStatus.Profile creator){
+            this.id=id;
+            this.name=name;
+            this.coverImgUrl=coverImgUrl;
+            this.creator=creator;
+
+        }
+
 
         public ArrayList<Song> getSongArrayList() {
             return songArrayList;
@@ -263,4 +355,29 @@ public class Music {
 
         public PlayQueue(){}
     }
+
+    static public class RecentPlay<T> implements Serializable{
+        String id;
+        long time;
+        T resource;
+        public RecentPlay(T res, String id, long time){
+            this.resource=res;
+            this.id=id;
+            this.time=time;
+        }
+
+        public T getResource() {
+            return resource;
+        }
+
+        public long getTime() {
+            return time;
+        }
+
+        public String getId() {
+            return id;
+        }
+    }
+
+
 }

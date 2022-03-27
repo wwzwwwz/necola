@@ -72,7 +72,11 @@ public class Search extends ResourceUtil {
                         albumArtistObject.getString("name"),
                         albumArtistObject.getString("picUrl")
                         );
-                Music.Album album=new Music.Album(albumObject.getInt("id"),albumObject.getString("name"),albumArtist);
+                Music.Album album=new Music.Album(albumObject.getInt("id"),
+                        albumObject.getString("name"),
+                        "",
+                        //albumObject.getString("picUrl"),
+                        albumArtist);
 
 
                 Music.Song song=new Music.Song(songsArray.getJSONObject(i).getInt("id"),

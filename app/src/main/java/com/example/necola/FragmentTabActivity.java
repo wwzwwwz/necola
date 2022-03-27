@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
 import com.example.necola.fragments.DiscoverFragment;
@@ -24,6 +25,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -34,9 +36,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.necola.service.foreground.SoundStateViewModel;
 import com.example.necola.service.io.DownloadService;
 import com.example.necola.utils.ActivityCollector;
@@ -46,6 +45,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ import io.socket.emitter.Emitter;
 
 public class FragmentTabActivity extends BaseActivity{
 
-    public List<Fragment> contextFragments = new ArrayList<>();
+    protected int currentNavItemId;
     protected MeFragment meFragment;
     public ContactFragment contactFragment;
     public DiscoverFragment discoverFragment;
@@ -66,7 +66,10 @@ public class FragmentTabActivity extends BaseActivity{
 
     SoundService mService;
     boolean mBound = false;
-
+    String NAV_ITEM_TAG_DISCOVER;
+    String NAV_ITEM_TAG_ME;
+    String NAV_ITEM_TAG_MESSAGE;
+    FragmentManager fragmentManager;
 
     private Emitter.Listener onNewChat= args -> FragmentTabActivity.this.runOnUiThread(new Runnable() {
         @Override
@@ -109,11 +112,11 @@ public class FragmentTabActivity extends BaseActivity{
 
                 };
                 startService(startIntent);
-               // play.setSelected(true);
+                // play.setSelected(true);
 
 
 
-                
+
 
             }
         });
@@ -131,7 +134,7 @@ public class FragmentTabActivity extends BaseActivity{
             }
         });
 
-        ImageView detail=findViewById(R.id.sheet_songicon);
+        ImageView detail=findViewById(R.id.playbar_img);
         detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,12 +160,32 @@ public class FragmentTabActivity extends BaseActivity{
     @Override
     protected void onStop() {
         super.onStop();
+
         //unbindService(connectionS);
-       // mBound = false;
+        // mBound = false;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
 
+    }
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection connectionSource = new ServiceConnection() {
@@ -201,6 +224,10 @@ public class FragmentTabActivity extends BaseActivity{
 
             model.getCurrentArtists().observe(FragmentTabActivity.this,
                     s ->  ((TextView)findViewById(R.id.playbar_artists)).setText((String) s));
+
+            model.getCurrentPicUrl().observe(FragmentTabActivity.this,
+                    s -> Picasso.get().load(s).into((ShapeableImageView)findViewById(R.id.playbar_img)));
+
 
             /////
 
@@ -252,11 +279,27 @@ public class FragmentTabActivity extends BaseActivity{
 
         }
     };
-   
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+        outState.putInt("currentNavItemId", currentNavItemId);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_tab);
+        NAV_ITEM_TAG_DISCOVER=getString(R.string.discover);
+        NAV_ITEM_TAG_ME=getString(R.string.me);
+        NAV_ITEM_TAG_MESSAGE=getString(R.string.message);
+
         mSocket= SocketIOClient.getInstance();
         mSocket.on("new chat_server",onNewChat);
         currentUsername=getIntent().getStringExtra("currentUsername");
@@ -273,10 +316,11 @@ public class FragmentTabActivity extends BaseActivity{
         discoverFragment=new DiscoverFragment();
         mDrawer=(DrawerLayout) findViewById(R.id.drawer_layout) ;
         bottomNavigationView=(BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //getSupportFragmentManager().
         initPlaySheet();
 
-        actionbar.setTitle("Discover");
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, discoverFragment).commit();
+
+
 
 
         //startService(downloadIntent);//
@@ -292,31 +336,69 @@ public class FragmentTabActivity extends BaseActivity{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(FragmentTabActivity.this,new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
+
+
+        fragmentManager=getSupportFragmentManager();
+
+        if(savedInstanceState!=null)
+        {
+            currentNavItemId= savedInstanceState.getInt("currentNavItemId");
+
+
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commitNow();
             }
+
+            fragmentManager.beginTransaction().add(R.id.container, discoverFragment,NAV_ITEM_TAG_DISCOVER).hide(discoverFragment).commitNow();
+            fragmentManager.beginTransaction().add(R.id.container, contactFragment,NAV_ITEM_TAG_MESSAGE).hide(contactFragment).commitNow();
+            fragmentManager.beginTransaction().add(R.id.container, meFragment,NAV_ITEM_TAG_ME).hide(meFragment).commitNow();
+            fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag(getString(currentNavItemId))).commit();//normal working need above transactions to be commitNow
+
+        }
+        else{
+            fragmentManager.beginTransaction().add(R.id.container, discoverFragment,NAV_ITEM_TAG_DISCOVER).commit();
+            fragmentManager.beginTransaction().add(R.id.container, contactFragment,NAV_ITEM_TAG_MESSAGE).hide(contactFragment).commit();
+            fragmentManager.beginTransaction().add(R.id.container, meFragment,NAV_ITEM_TAG_ME).hide(meFragment).commit();
+            currentNavItemId =R.string.discover;
+
+        }
+
+        actionbar.setTitle(getString(currentNavItemId));
+
+
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener(){
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+
                 switch (item.getItemId()) {
+
                     case R.id.discover:
-                        actionbar.setTitle("Discover");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, discoverFragment).commit();
+                        actionbar.setTitle(getString(R.string.discover));
+
+                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(getString(currentNavItemId))).show(fragmentManager.findFragmentByTag(NAV_ITEM_TAG_DISCOVER)).commit();
+                        currentNavItemId =R.string.discover;
                         return true;
                     case R.id.chat:
-                        actionbar.setTitle("Message");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, contactFragment).commit();
+                        actionbar.setTitle(getString(R.string.message));
+                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(getString(currentNavItemId))).show(fragmentManager.findFragmentByTag(NAV_ITEM_TAG_MESSAGE)).commit();
+                        currentNavItemId =R.string.message;
                         return true;
-                   // case R.id.status:
-                     //   actionbar.setTitle("Status");
-                       // getSupportFragmentManager().beginTransaction().replace(R.id.container, statusFragment).commit();
-                        //break;
+                    // case R.id.status:
+                    //   actionbar.setTitle("Status");
+                    // getSupportFragmentManager().beginTransaction().replace(R.id.container, statusFragment).commit();
+                    //break;
                     case R.id.me:
-                        actionbar.setTitle("Me");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, meFragment).commit();
+                        actionbar.setTitle(getString(R.string.me));
+                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag(getString(currentNavItemId))).show(fragmentManager.findFragmentByTag(NAV_ITEM_TAG_ME)).commit();
+                        currentNavItemId =R.string.me;
                         break;
                 }
+
                 return true;
             }
         });
@@ -373,10 +455,9 @@ public class FragmentTabActivity extends BaseActivity{
         startActivity(intent);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
-
-
-
-
-
+    }
 }

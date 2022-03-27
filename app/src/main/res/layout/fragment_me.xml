@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<FrameLayout
+    android:id="@+id/fragment_me"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.MeFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".fragments.MeFragment">
+        >
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Material3.CardView.Filled"
             app:cardBackgroundColor="?attr/colorSurface"
@@ -44,9 +47,10 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/nickname"
             style="@style/MaterialAlertDialog.Material3.Title.Text.CenterStacked"
             android:layout_gravity="center"
-            android:text="My Nickname"
+            android:text="@string/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
@@ -54,13 +58,19 @@
         </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:id="@+id/action_bar"
-            app:layout_constraintTop_toBottomOf="@+id/userinfo_layout"
-            app:layout_constraintBottom_toTopOf="@+id/collection"
-            android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/action_bar"
+        app:layout_constraintTop_toBottomOf="@+id/userinfo_layout"
+        app:layout_constraintBottom_toTopOf="@+id/collection">
+        <LinearLayout
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.button.MaterialButton
 
@@ -69,12 +79,12 @@
                 app:icon="@drawable/outline_sync_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sync Aggregation"></com.google.android.material.button.MaterialButton>
+                android:text="@string/sync_aggregation"></com.google.android.material.button.MaterialButton>
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Local"
+                android:text="@string/local"
                 android:id="@+id/local_music"
                 app:icon="@drawable/outline_music_note_24"></com.google.android.material.button.MaterialButton>
             <com.google.android.material.button.MaterialButton
@@ -82,9 +92,9 @@
                 app:icon="@drawable/outline_download_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Download"></com.google.android.material.button.MaterialButton>
+                android:text="@string/download"></com.google.android.material.button.MaterialButton>
         </LinearLayout>
-
+    </HorizontalScrollView>
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Material3.CardView.Elevated"
             android:orientation="vertical"
@@ -105,7 +115,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_alignParentLeft="true"
                     style="@style/TextAppearance.Material3.TitleMedium"
-                    android:text="Recent Play"
+                    android:text="@string/recent_play"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -144,7 +154,7 @@
 
                         <com.google.android.material.textview.MaterialTextView
 
-                            android:text="Song"
+                            android:text="@string/song"
                             style="@style/TextAppearance.Material3.TitleLarge"
                             android:gravity="center"
                             android:layout_width="100dp"
@@ -162,7 +172,7 @@
                         android:layout_height="wrap_content">
                         <com.google.android.material.textview.MaterialTextView
 
-                            android:text="Playlist"
+                            android:text="@string/playlist"
                             style="@style/TextAppearance.Material3.TitleLarge"
                             android:gravity="center"
                             android:layout_width="100dp"
@@ -179,7 +189,7 @@
                         android:layout_height="wrap_content">
                         <com.google.android.material.textview.MaterialTextView
 
-                            android:text="Album"
+                            android:text="@string/album"
                             style="@style/TextAppearance.Material3.TitleLarge"
                             android:gravity="center"
                             android:layout_width="100dp"
@@ -252,3 +262,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

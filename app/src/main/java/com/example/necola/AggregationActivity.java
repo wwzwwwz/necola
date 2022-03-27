@@ -21,8 +21,8 @@ public class AggregationActivity extends BaseActivity{
         setContentView(R.layout.activity_aggregation);
 
         ArrayList<CollectionFragment> fragmentArrayList=new ArrayList<>();
-        fragmentArrayList.add(new SyncNeteaseMusicFragment()) ;
-        fragmentArrayList.add(new SyncQQMusicFragment());
+        fragmentArrayList.add(new SyncNeteaseMusicFragment(getString(R.string.netease_music))) ;
+        fragmentArrayList.add(new SyncQQMusicFragment(getString(R.string.qqmusic)));
 
         TabViewpager2Fragment fragment=new TabViewpager2Fragment(fragmentArrayList);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Necola</string>
+    <string name="user_library_host">159.75.16.150:8000</string>
+    <string name="music_library_host">159.75.16.150:3000</string>
+    <string name="hint_username">用户名</string>
+    <string name="hint_password">密码</string>
+    <string name="button_next">下一步</string>
+    <string name="button_register">注册</string>
+    <string name="error_password">密码至少包含8位字符</string>
+
+    <string name="discover">发现</string>
+    <string name="more">更多</string>
+    <string name="message">消息</string>
+    <string name="me">我</string>
+    <string name="recommend">推荐</string>
+
+    <string name="hint_sex">性别</string>
+    <string name="hint_country_Region">国家/地区</string>
+    <string name="prompt_email">邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="action_register">Register Now</string>
+    <string name="hint_repeat_password">Confirm Password</string>
+    <string name="notification_title">Music Player</string>
+    <string name="foreground_search">搜素</string>
+    <string name="text_value_radio_notification" translatable="false">Radio</string>
+    <string name="action_search">输入文本...</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="artist_all">所有</string>
+    <string name="artist_area_chinese">华语</string>
+    <string name="artist_area_eu"><![CDATA[欧美]]></string>
+    <string name="artist_area_jp">日语</string>
+    <string name="artist_area_ko">韩语</string>
+    <string name="artist_area_other">其他</string>
+    <string name="gender_male">男</string>
+    <string name="gender_female">女</string>
+    <string name="artist_group">组合</string>
+    <string name="none">None</string>
+    <string name="login">登录</string>
+    <string name="info_save">保存状态</string>
+    <string name="register">注册</string>
+    <string name="gender">性别</string>
+    <string name="play_queue">播放队列</string>
+    <string name="mobile_number">手机号码</string>
+    <string name="sync">同步</string>
+    <string name="leaderboard">榜单</string>
+    <string name="artist">艺术家</string>
+    <string name="classification">分类</string>
+    <string name="nickname">昵称</string>
+    <string name="sync_aggregation">同步聚合</string>
+    <string name="download">下载管理</string>
+    <string name="recent_play">最近播放</string>
+    <string name="song">歌曲</string>
+    <string name="playlist">歌单</string>
+    <string name="album">专辑</string>
+
+    <string name="collected_album">收藏的专辑</string>
+    <string name="original_playlist">自创的歌单</string>
+    <string name="collected_playlist">收集的歌单</string>
+
+    <string name="netease_music">网易云音乐</string>
+    <string name="qqmusic">QQ 音乐</string>
+    <string name="local">本地音乐</string>
+    <string name="personal_recommendation">个性化推荐</string>
+
+    <!-- -->
+</resources>

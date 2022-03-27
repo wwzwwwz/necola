@@ -35,7 +35,7 @@
                 android:gravity="left"
                 android:paddingLeft="5dp"
                 android:paddingRight="7dp"
-                android:text="None"
+                android:text="@string/none"
                 android:textSize="16sp"
               />
 
@@ -47,7 +47,7 @@
                 android:gravity="left"
                 android:paddingLeft="5dp"
                 android:paddingRight="7dp"
-                android:text="None"
+                android:text="@string/none"
                 android:textColor="#828282"
                 android:textSize="14sp" />
 
@@ -65,7 +65,7 @@
             android:layout_alignRight="@+id/ui_notification_player_button"
             android:layout_alignBottom="@+id/ui_notification_player_button"
             android:indeterminate="true"
-            android:theme="@style/ProgressBarSoundNotificatonTheme" />
+            android:theme="@style/Widget.Material3.CircularProgressIndicator.Medium" />
 
         <TextView
             style="@style/Widget.Material3.Button.IconButton"

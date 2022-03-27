@@ -1,13 +1,23 @@
 package com.example.necola.fragments.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
+import com.example.necola.PlayingActivity;
+import com.example.necola.R;
 import com.example.necola.databinding.FragmentItemRecentAlbumDialogItemBinding;
 import com.example.necola.databinding.FragmentItemRecentAlbumDialogListLayoutBinding;
+import com.example.necola.entity.Music;
+import com.example.necola.service.foreground.MusicConstants;
+import com.example.necola.service.foreground.SoundService;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -31,13 +43,17 @@ public class RecentAlbumListDialogFragment extends BottomSheetDialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentItemRecentAlbumDialogListLayoutBinding binding;
 
-    // TODO: Customize parameters
-    public static RecentAlbumListDialogFragment newInstance(int itemCount) {
+    RecyclerView recyclerView;
+
+    public static RecentAlbumListDialogFragment newInstance() {
         final RecentAlbumListDialogFragment fragment = new RecentAlbumListDialogFragment();
-        final Bundle args = new Bundle();
-        args.putInt(ARG_ITEM_COUNT, itemCount);
-        fragment.setArguments(args);
+        //final Bundle args = new Bundle();
+        //args.putInt(ARG_ITEM_COUNT, itemCount);
+        //fragment.setArguments(args);
         return fragment;
+    }
+    public void refresh(ArrayList<Music.RecentPlay<Music.Album>> recentAlbumArrayList) {
+        recyclerView.setAdapter(new RecentAlbumListDialogFragment.RecentAlbumAdapter(recentAlbumArrayList));
     }
 
     @Nullable
@@ -52,9 +68,10 @@ public class RecentAlbumListDialogFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.setAdapter(new RecentAlbumAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
+
+        //recyclerView.setAdapter(new RecentAlbumAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
     }
 
     @Override
@@ -65,21 +82,24 @@ public class RecentAlbumListDialogFragment extends BottomSheetDialogFragment {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView text;
+        final MaterialCardView item;
+        final ShapeableImageView image;
+        final MaterialTextView text;
 
         ViewHolder(FragmentItemRecentAlbumDialogItemBinding binding) {
             super(binding.getRoot());
-            text = binding.text;
+            item=binding.item;
+            image=binding.image;
+            text=binding.text;
         }
 
     }
 
     private class RecentAlbumAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private final int mItemCount;
-
-        RecentAlbumAdapter(int itemCount) {
-            mItemCount = itemCount;
+        private final ArrayList<Music.RecentPlay<Music.Album>> recentAlbumArrayList;
+        RecentAlbumAdapter(ArrayList<Music.RecentPlay<Music.Album>> recentAlbumArrayList) {
+           this.recentAlbumArrayList=recentAlbumArrayList;
         }
 
         @NonNull
@@ -92,12 +112,20 @@ public class RecentAlbumListDialogFragment extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.valueOf(position));
+            Music.RecentPlay<Music.Album> album=recentAlbumArrayList.get(position);
+            holder.text.setText(album.getResource().getName());
+            Picasso.get().load(album.getResource().getPicUrl()).into(holder.image);
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return mItemCount;
+            return recentAlbumArrayList.size();
         }
 
     }

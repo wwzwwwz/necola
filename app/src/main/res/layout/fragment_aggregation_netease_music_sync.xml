@@ -20,7 +20,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="@string/mobile_number"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="Rememer Password"/>
+                android:text="@string/info_save"/>
         </LinearLayout>
 
 
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sync" />
+            android:text="@string/sync" />
 
 
 

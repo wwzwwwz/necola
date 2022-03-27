@@ -26,38 +26,38 @@
                     android:id="@+id/area_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ALL"/>
+                    android:text="@string/artist_all"/>
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:id="@+id/area_chinese"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chinese"/>
+                    android:text="@string/artist_area_chinese"/>
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:id="@+id/area_eu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/area_eu"/>
+                    android:text="@string/artist_area_eu"/>
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:id="@+id/area_jp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Japanese"/>
+                    android:text="@string/artist_area_jp"/>
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:id="@+id/area_ko"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Korean"/>
+                    android:text="@string/artist_area_ko"/>
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:id="@+id/area_ot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Other"/>
+                    android:text="@string/artist_area_other"/>
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -77,27 +77,27 @@
             android:id="@+id/artist_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ALL"/>
+            android:text="@string/artist_all"/>
 
         <com.google.android.material.chip.Chip
             style="@style/Widget.Material3.Chip.Filter"
             android:id="@+id/artist_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"/>
+            android:text="@string/gender_male"/>
         <com.google.android.material.chip.Chip
             style="@style/Widget.Material3.Chip.Filter"
             android:id="@+id/artist_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="female"/>
+            android:text="@string/gender_female" />
 
         <com.google.android.material.chip.Chip
             style="@style/Widget.Material3.Chip.Filter"
             android:id="@+id/artist_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group"/>
+            android:text="@string/artist_group"/>
 
         <!-- Chips can be declared here, or added dynamically. -->
 

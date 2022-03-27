@@ -20,10 +20,17 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SyncNeteaseMusicFragment extends CollectionFragment{
+    String name;
+    public SyncNeteaseMusicFragment(String name){
+        this.name=name;
+
+    }
     @Override
     public String getName() {
-        return "Netease Music";
+        return this.name;
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater , ViewGroup containter,

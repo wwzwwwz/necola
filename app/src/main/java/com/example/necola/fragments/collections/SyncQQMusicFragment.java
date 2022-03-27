@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import com.example.necola.R;
 
 public class SyncQQMusicFragment extends CollectionFragment{
+    String name;
+    public SyncQQMusicFragment(String name){
+        this.name=name;
+
+    }
     @Override
     public String getName() {
-        return "QQ Music";
+        return this.name;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater , ViewGroup containter,
                              Bundle savedINstanceState){

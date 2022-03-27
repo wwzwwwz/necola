@@ -9,7 +9,14 @@ import com.example.necola.R;
 
 public class ArtistFragment extends CollectionFragment {
 
-
+    public static final ArtistFragment newInstance(int title)
+    {
+        ArtistFragment fragment = new ArtistFragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putInt("title", title);
+        fragment.setArguments(bundle);
+        return fragment ;
+    }
 
 
     @Override
@@ -23,8 +30,5 @@ public class ArtistFragment extends CollectionFragment {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Artists";
-    }
+
 }

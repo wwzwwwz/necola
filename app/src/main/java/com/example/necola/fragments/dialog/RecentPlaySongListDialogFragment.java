@@ -1,13 +1,21 @@
 package com.example.necola.fragments.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
+import com.example.necola.PlayingActivity;
+import com.example.necola.R;
 import com.example.necola.databinding.FragmentItemRecentSongDialogItemBinding;
 import com.example.necola.databinding.FragmentItemRecentSongDialogListLayoutBinding;
+import com.example.necola.entity.Music;
+import com.example.necola.service.foreground.MusicConstants;
+import com.example.necola.service.foreground.SoundService;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +25,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,15 +42,22 @@ public class RecentPlaySongListDialogFragment extends BottomSheetDialogFragment 
 
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
+    private static final String RECENT_PLAYSONG_LIST="recent_play_song";
     private FragmentItemRecentSongDialogListLayoutBinding binding;
 
+    RecyclerView recyclerView;
+
     // TODO: Customize parameters
-    public static RecentPlaySongListDialogFragment newInstance(int itemCount) {
+    public static RecentPlaySongListDialogFragment newInstance() {
         final RecentPlaySongListDialogFragment fragment = new RecentPlaySongListDialogFragment();
-        final Bundle args = new Bundle();
-        args.putInt(ARG_ITEM_COUNT, itemCount);
-        fragment.setArguments(args);
+        //final Bundle args = new Bundle();
+        //args.putSerializable(RECENT_PLAYSONG_LIST,recentPlayList);
+        //fragment.setArguments(args);
         return fragment;
+    }
+
+    public void refresh(ArrayList<Music.RecentPlay<Music.Song>> recentPlayArrayList) {
+        recyclerView.setAdapter(new RecentPlaySongListDialogFragment.RecentPlaySongAdapter(recentPlayArrayList));
     }
 
     @Nullable
@@ -53,9 +72,9 @@ public class RecentPlaySongListDialogFragment extends BottomSheetDialogFragment 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new RecentPlaySongListDialogFragment.RecentPlaySongAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
+        //recyclerView.setAdapter(new RecentPlaySongListDialogFragment.RecentPlaySongAdapter((ArrayList<Music.RecentPlay<Music.Song>>) getArguments().getSerializable(RECENT_PLAYSONG_LIST)));
 
     }
 
@@ -68,21 +87,24 @@ public class RecentPlaySongListDialogFragment extends BottomSheetDialogFragment 
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView text;
+        final MaterialCardView item;
+        final MaterialTextView musicTitle;
+        final MaterialTextView musicArtist;
 
         ViewHolder(FragmentItemRecentSongDialogItemBinding binding) {
             super(binding.getRoot());
-            text = binding.text;
+            item=binding.item;
+            musicArtist=binding.musicItemArtist;
+            musicTitle=binding.musicItemTitle;
         }
 
     }
 
     private class RecentPlaySongAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private final int mItemCount;
-
-        RecentPlaySongAdapter(int itemCount) {
-            mItemCount = itemCount;
+        private final ArrayList<Music.RecentPlay<Music.Song>> recentPlayArrayList;
+        RecentPlaySongAdapter(ArrayList<Music.RecentPlay<Music.Song>> recentPlayArrayList) {
+           this.recentPlayArrayList=recentPlayArrayList;
         }
 
         @NonNull
@@ -95,12 +117,27 @@ public class RecentPlaySongListDialogFragment extends BottomSheetDialogFragment 
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.valueOf(position));
+            Music.RecentPlay<Music.Song> song=recentPlayArrayList.get(position);
+            holder.musicTitle.setText(song.getResource().getTitle());
+            holder.musicArtist.setText(song.getResource().getArrayListToString());
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent startIntent=new Intent(getActivity(), SoundService.class);
+                    startIntent.putExtra("song",song.getResource());
+                    startIntent.setAction(MusicConstants.ACTION.START_ACTION);
+                    getActivity().startService(startIntent);
+
+                    Intent intent=new Intent(getActivity(), PlayingActivity.class);
+                    getActivity().startActivity(intent);
+                    getActivity().overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return mItemCount;
+            return recentPlayArrayList.size();
         }
 
     }

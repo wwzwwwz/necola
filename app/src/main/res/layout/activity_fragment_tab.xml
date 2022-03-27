@@ -70,10 +70,12 @@
                         android:layout_marginHorizontal="10dp"
                         android:orientation="horizontal">
 
+
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/sheet_songicon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+
+                            android:id="@+id/playbar_img"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:src="@drawable/strawberry"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
@@ -82,24 +84,26 @@
 
 
                         <LinearLayout
+                            android:layout_marginLeft="5dp"
                             android:id="@+id/linearLayout3"
                             android:layout_width="180dp"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/sheet_songicon"
+                            app:layout_constraintStart_toEndOf="@id/playbar_img"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:layout_editor_absoluteX="67dp">
 
                             <com.google.android.material.textview.MaterialTextView
 
+                                android:layout_marginTop="5dp"
                                 android:id="@+id/playbar_title"
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="top"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="None" />
+                                android:text="@string/none" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/playbar_artists"
@@ -108,7 +112,7 @@
                                 android:layout_gravity="bottom"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="None" />
+                                android:text="@string/none" />
                         </LinearLayout>
 
                         <com.google.android.material.imageview.ShapeableImageView

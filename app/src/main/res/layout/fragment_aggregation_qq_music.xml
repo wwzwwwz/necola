@@ -14,18 +14,6 @@
         android:padding="24dp"
         android:paddingTop="16dp">
 
-
-        <com.google.android.material.textview.MaterialTextView
-
-            style="@style/TextAppearance.Material3.HeadlineLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginBottom="200dp"
-            android:text="LOGIN"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="Rememer Password"/>
+                android:text="@string/info_save"/>
         </LinearLayout>
 
 
@@ -75,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/button_next" />
+            android:text="@string/sync" />
 
 
 

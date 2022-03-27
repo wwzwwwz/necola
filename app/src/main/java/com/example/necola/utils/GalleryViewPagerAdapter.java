@@ -48,15 +48,28 @@ public class GalleryViewPagerAdapter extends PagerAdapter {
             public void run() {
                 if (myPager.getCurrentItem() == size-1 ) {
                     myPager.setCurrentItem(0);
-
                 }
                 else
                     myPager.setCurrentItem(myPager.getCurrentItem()+1, true);
-                mIndicator.setProgress((int) (myPager.getCurrentItem()/(size-1)*100));
             }
         };
 
+        myPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mIndicator.setProgress((int) (myPager.getCurrentItem()/(size-1)*100));
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {

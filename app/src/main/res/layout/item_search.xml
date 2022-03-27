@@ -38,7 +38,6 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/music_item_artist"
                 style="@style/TextAppearance.Material3.BodySmall"
-                android:text="TEST"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
